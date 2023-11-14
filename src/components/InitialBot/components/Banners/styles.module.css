@@ -5,6 +5,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 16px;
+  max-width: 1000px;
 }
 
 .banner {
@@ -17,11 +18,12 @@
   justify-content: space-between;
   align-items: flex-start;
   color: white;
+  transition-duration: 0.3s;
+  animation: fadeInAnimation 0.3s ease-in-out forwards;
 }
 
 .banner:hover {
-  transform: scale(1.05);
-  transition-duration: 0.3s;
+   transform: scale(1.05); 
 }
 
 .banner_description_container {
@@ -37,6 +39,17 @@
 .banner_description_title {
   font-weight: 600;
   font-size: 17px;
+}
+
+.banner_description_text {
+  max-width: 100%;
+  transition-duration: 0.3s;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .banner_description_type {
@@ -93,4 +106,13 @@
   grid-column-end: 2;
   grid-row-start: 4;
   grid-row-end: 5;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

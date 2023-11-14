@@ -1,14 +1,18 @@
 import styles from './styles.module.css'
 
 export function Messages ({ messages }) {
+  console.log(messages)
+
   return (
     <div className={styles.messages}>
-      {messages.map(({ message, me, time }) => {
+      {messages?.map((message, index) => {
+        const time = '08:55'
+
         let messageType
-        if (me) messageType = 'me'
+        if (message.me) messageType = 'me'
 
         return (
-          <div key={message} className={styles.message_container}>
+          <div key={index} className={styles.message_container}>
             <div className={styles.message_container_top}>
               <div
                 className={`${styles.message_owner} ${
@@ -18,14 +22,14 @@ export function Messages ({ messages }) {
                 <div
                   className={`${styles.circle} ${styles[messageType] || ''}`}
                 />
-                <span>Valtira</span>
+                <span>{message.me ? 'You' : 'Valtira'}</span>
               </div>
 
               <span className={styles.message_time}>{time}</span>
             </div>
 
             <div className={`${styles.message} ${styles[messageType] || ''}`}>
-              {message}
+              {message.text}
             </div>
           </div>
         )
