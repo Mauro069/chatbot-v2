@@ -3,15 +3,17 @@ import { Loader } from '../../../Loader'
 import styles from './styles.module.css'
 
 export function InputChat ({ handleSubmit }) {
-  const [prompt, setPrompt] = useState({ text: '', disabled: false })
+  const [text, setText] = useState('')
+  const [disabled, setDisabled] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async e => {
-    setPrompt({ text: '', disabled: true })
+    setDisabled(true)
     setLoading(true)
     await handleSubmit(e)
     setLoading(false)
-    setPrompt({ disabled: false })
+    setDisabled(false)
+    setText('')
   }
 
   const handleKeyDown = e => {
@@ -23,9 +25,9 @@ export function InputChat ({ handleSubmit }) {
   return (
     <form onSubmit={onSubmit} className={styles.chat_button}>
       <input
-        disabled={prompt.disabled}
-        value={prompt.text}
-        onChange={e => setPrompt(e.target.value)}
+        disabled={disabled}
+        value={text}
+        onChange={e => setText(e.target.value)}
         onKeyDown={handleKeyDown}
         autoFocus
         placeholder={loading ? 'Loading...' : 'Ask anything...'}
