@@ -1,0 +1,9 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.7">
+<rect width="7.01919" height="0.979422" rx="0.489711" transform="matrix(0.707107 0.707107 0.707107 -0.707107 9.43372 9.4939)" fill="#181818"/>
+<rect width="7.01919" height="0.979422" rx="0.489711" transform="matrix(-0.707107 0.707107 0.707107 0.707107 18.6677 8.80151)" fill="#181818"/>
+<rect width="7.01919" height="0.979422" rx="0.489711" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 19.3614 17.918)" fill="#181818"/>
+<rect width="7.01919" height="0.979422" rx="0.489711" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 10.1274 18.6104)" fill="#181818"/>
+</g>
+<rect x="1.40137" y="0.70752" width="25.9971" height="25.9971" rx="12.9985" stroke="#BEBEBE"/>
+</svg>
