@@ -41,6 +41,7 @@ export function InitialChat () {
             messages={messages}
             setLastLinks={setLastLinks}
             setMessages={setMessages}
+            closeChat={handleInitialChatClick}
           />
 
           {lastLinks ? (

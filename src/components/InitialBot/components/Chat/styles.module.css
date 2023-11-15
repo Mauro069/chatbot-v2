@@ -13,6 +13,15 @@
   padding: 1.5rem;
   align-items: center;
   justify-content: space-between;
+
+  & img {
+    cursor: pointer;
+    transition-duration: 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 
 .chat_input {

@@ -4,7 +4,7 @@ import { InputChat } from '../InputChat'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
-export function Chat ({ messages, setMessages, setLastLinks }) {
+export function Chat ({ messages, setMessages, setLastLinks, closeChat }) {
   const handleSubmit = async e => {
     e.preventDefault()
 
@@ -50,7 +50,7 @@ export function Chat ({ messages, setMessages, setLastLinks }) {
     <div className={styles.chat}>
       <header className={styles.chat_header}>
         <img src='/assets/complete_logo.svg' />
-        <img src='/assets/hamburger.svg' />
+        <img src='/assets/back.svg' onClick={closeChat} />
       </header>
 
       <Messages messages={messages} />
