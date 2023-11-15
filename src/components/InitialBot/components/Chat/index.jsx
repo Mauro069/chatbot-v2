@@ -1,38 +1,11 @@
-import { useState } from 'react'
 import { Messages } from '../Messages'
 import styles from './styles.module.css'
 import { InputChat } from '../InputChat'
 
-const initialMessage = {
-  text: 'Hey there! At Valtira, we solve hard technology problems, and we do it with a 😊 on our face. What brings you here today?'
-}
-
 const apiUrl = import.meta.env.VITE_API_URL
 
-export function Chat () {
-  // const [loading, setLoading] = useState(false)
-  const [messages, setMessages] = useState([initialMessage])
-
-  // const testMessages = [
-  //   {
-  //     message:
-  //       'Hey there! At Valtira, we solve hard technology problems, and we do it with a 😊 on our face. What brings you here today?',
-  //     time: '08:55'
-  //   },
-  //   {
-  //     message: 'Do you do DevOps?',
-  //     time: '08:55',
-  //     me: true
-  //   },
-  //   {
-  //     message:
-  //       'Valtira was an early adopter of the DevOps philosophy and has built an established practice around operational excellence in cloud-based applications.',
-  //     time: '08:55'
-  //   }
-  // ]
-
+export function Chat ({ messages, setMessages, setLastLinks }) {
   const handleSubmit = async e => {
-    // setLoading(true)
     e.preventDefault()
 
     setMessages(prevValues => [
@@ -55,11 +28,12 @@ export function Chat () {
 
       if (response.ok) {
         const data = await response.json()
+
+        if (data.links.length > 0) setLastLinks(data.links)
+        else setLastLinks(null)
+
         // Handle server response if necessary
-        setMessages(prevValues => [
-          ...prevValues,
-          { text: data.message, links: [...data.links] }
-        ])
+        setMessages(prevValues => [...prevValues, { text: data.message }])
       } else {
         console.error('Error in the request:', response.statusText)
         setMessages(prevValues => [
@@ -70,8 +44,6 @@ export function Chat () {
     } catch (error) {
       console.error('Error in the request:', error)
     }
-
-    // setLoading(false)
   }
 
   return (

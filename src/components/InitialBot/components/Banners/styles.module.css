@@ -1,11 +1,10 @@
 .banners_container {
-  height: 100%;
-  max-height: 650px;
+  height: 650px;
+  width: 1000px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 16px;
-  max-width: 1000px;
 }
 
 .banner {
@@ -23,7 +22,7 @@
 }
 
 .banner:hover {
-   transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .banner_description_container {

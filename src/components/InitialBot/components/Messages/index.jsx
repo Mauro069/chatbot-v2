@@ -1,18 +1,37 @@
+import { useEffect, useRef } from 'react'
 import styles from './styles.module.css'
 
 export function Messages ({ messages }) {
-  console.log(messages)
+  const messagesContainerRef = useRef(null)
+  const lastMessageRef = useRef(null)
+
+  const scrollToBottom = () => {
+    if (lastMessageRef.current) {
+      const lastMessage = lastMessageRef.current
+      lastMessage.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   return (
-    <div className={styles.messages}>
+    <div className={styles.messages} ref={messagesContainerRef}>
       {messages?.map((message, index) => {
         const time = '08:55'
 
         let messageType
         if (message.me) messageType = 'me'
 
+        const isLastMessage = index === messages.length - 1
+
         return (
-          <div key={index} className={styles.message_container}>
+          <div
+            key={index}
+            ref={isLastMessage ? lastMessageRef : null}
+            className={styles.message_container}
+          >
             <div className={styles.message_container_top}>
               <div
                 className={`${styles.message_owner} ${
