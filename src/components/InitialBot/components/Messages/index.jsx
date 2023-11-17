@@ -55,7 +55,7 @@ export function Messages () {
             </div>
 
             <div className={`${styles.message} ${styles[messageType] || ''}`}>
-              {renderLinkWithButton(message.text)}
+              <RenderLinkWithButton text={message.text} />
             </div>
           </div>
         )
@@ -64,7 +64,8 @@ export function Messages () {
   )
 }
 
-const renderLinkWithButton = text => {
+const RenderLinkWithButton = ({ text }) => {
+  // const {dispatch} = useChat()
   const buttonStartIndex = text.indexOf('<button')
 
   if (buttonStartIndex === -1) {
@@ -83,6 +84,8 @@ const renderLinkWithButton = text => {
   )
 
   const buttonContent = buttonTag.replace(/<\/?button[^>]*>/g, '')
+
+  console.log(buttonContent)
 
   const beforeButton = text.substring(0, buttonStartIndex)
   const afterButton = text.substring(buttonEndIndex + '</button>'.length)
