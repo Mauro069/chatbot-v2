@@ -1,69 +1,51 @@
 export const banners = [
   {
-    icon: 'custom',
-    title: 'Technology Integration',
-    type: 'Services',
+    icon: 'work',
+    title: 'Our Work',
+    type: 'Work samples & Case studies',
     background: '#1781E2'
   },
   {
-    icon: 'health_dark',
-    title: 'Healthcare',
-    type: 'Industries',
+    icon: 'chat_dark',
+    title: 'Contact',
+    type: 'Get in touch',
     background: '#E7E7E7',
     dark: true
   },
   {
-    icon: 'health',
-    title: 'Healthcare',
-    type: 'Industries',
-    background: '#D6308F'
+    icon: 'pc',
+    title: 'Careers',
+    type: '3 Positions Available',
+    background: '#1D1D1D'
   },
   {
-    icon: 'hand',
-    title: 'Digital Transformation',
-    type: 'Services',
+    icon: 'info',
+    title: 'About',
+    type: 'company profile',
     background: '#8B12EB'
   },
   {
-    icon: 'amc',
-    title: 'AMC+',
-    type: 'Work',
+    icon: 'industries',
+    title: 'Industries',
+    type: 'Areas of expertise',
     background: '#1CB8A5'
   },
   {
-    icon: 'hand',
-    title: 'Digital Transformation',
-    type: 'Services',
+    icon: 'union',
+    title: 'Services',
+    type: 'Lorem',
     background: '#1781E2'
   },
   {
-    icon: 'health',
-    title: 'Healthcare',
-    type: 'Industries',
+    icon: 'blog',
+    title: 'Blog',
+    type: 'ipsum',
+    background: '#8B12EB'
+  },
+  {
+    icon: "social_media",
+    title: 'Social media',
+    type: 'Follow us',
     background: '#D6308F'
-  },
-  {
-    icon: 'health',
-    title: 'Healthcare',
-    type: 'Industries',
-    background: '#8B12EB'
-  },
-  {
-    icon: 'amc',
-    title: 'AMC+',
-    type: 'Work',
-    background: '#8B12EB'
-  },
-  {
-    icon: 'custom',
-    title: 'Custom Development',
-    type: 'Services',
-    background: '#1781E2'
-  },
-  {
-    icon: 'health',
-    title: 'Healthcare',
-    type: 'Industries',
-    background: '#1D1D1D'
   }
 ]

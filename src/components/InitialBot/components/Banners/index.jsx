@@ -28,10 +28,6 @@ export function Banners () {
                 <span className={styles.banner_description_title}>
                   {banner.title}
                 </span>
-                <p className={styles.banner_description_text}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod
-                </p>
               </div>
               <p className={bannerDescriptionTypeClass}>{banner.type}</p>
             </div>
