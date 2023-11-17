@@ -88,3 +88,9 @@
     opacity: 1;
   }
 }
+
+.button {
+  background-color: #00000020;
+  padding: .2rem;
+  cursor: pointer;
+}

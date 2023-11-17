@@ -1,5 +1,5 @@
 import { useChat } from '../../../../context/Chat/context'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from './styles.module.css'
 
 export function Messages () {
@@ -20,7 +20,12 @@ export function Messages () {
 
   return (
     <div className={styles.messages} ref={messagesContainerRef}>
-      {messages?.map((message, index) => {
+      {[
+        ...messages,
+        {
+          text: "We offer both DevOps solutions architecture as well as just-in-time and managed <button class='services'>services</button> around cloud-based applications and integrations with a keen eye for scalability, uptime, and repeatability"
+        }
+      ]?.map((message, index) => {
         const time = '08:55'
 
         let messageType
@@ -50,11 +55,46 @@ export function Messages () {
             </div>
 
             <div className={`${styles.message} ${styles[messageType] || ''}`}>
-              {message.text}
+              {renderLinkWithButton(message.text)}
             </div>
           </div>
         )
       })}
     </div>
+  )
+}
+
+const renderLinkWithButton = text => {
+  const buttonStartIndex = text.indexOf('<button')
+
+  if (buttonStartIndex === -1) {
+    return <>{text}</>
+  }
+
+  const buttonEndIndex = text.indexOf('</button>', buttonStartIndex)
+
+  if (buttonEndIndex === -1) {
+    return <>{text}</>
+  }
+
+  const buttonTag = text.substring(
+    buttonStartIndex,
+    buttonEndIndex + '</button>'.length
+  )
+
+  const buttonContent = buttonTag.replace(/<\/?button[^>]*>/g, '')
+
+  const beforeButton = text.substring(0, buttonStartIndex)
+  const afterButton = text.substring(buttonEndIndex + '</button>'.length)
+
+  return (
+    <>
+      {beforeButton}
+      {React.createElement('a', {
+        className: `${styles.button}`,
+        dangerouslySetInnerHTML: { __html: buttonContent }
+      })}
+      {afterButton}
+    </>
   )
 }
