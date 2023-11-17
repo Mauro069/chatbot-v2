@@ -1,9 +1,9 @@
-import { useMessages } from '../../../../context/MessagesContext'
+import { useChat } from '../../../../context/Chat/context'
 import { useEffect, useRef } from 'react'
 import styles from './styles.module.css'
 
 export function Messages () {
-  const { messages } = useMessages()
+  const { messages } = useChat()
   const messagesContainerRef = useRef(null)
   const lastMessageRef = useRef(null)
 

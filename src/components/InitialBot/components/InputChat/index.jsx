@@ -1,29 +1,28 @@
-import { useState } from 'react'
+import { useChat } from '../../../../context/Chat/context'
+import { addMessageToApi } from '../../../../config/api'
 import { Loader } from '../../../Loader'
+import { useState } from 'react'
+
 import styles from './styles.module.css'
 
-export function InputChat ({ handleSubmit }) {
+export function InputChat () {
   const [text, setText] = useState('')
-  const [disabled, setDisabled] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const { loading, disabled, dispatch } = useChat()
 
-  const onSubmit = async e => {
-    setDisabled(true)
-    setLoading(true)
-    await handleSubmit(e)
-    setLoading(false)
-    setDisabled(false)
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    const inputText = e.target.value
+    addMessageToApi(inputText, dispatch)
     setText('')
   }
 
   const handleKeyDown = e => {
-    if (e.key === 'Enter') {
-      onSubmit(e)
-    }
+    if (e.key === 'Enter') handleSubmit(e)
   }
 
   return (
-    <form onSubmit={onSubmit} className={styles.chat_button}>
+    <form onSubmit={handleSubmit} className={styles.chat_button}>
       <input
         disabled={disabled}
         value={text}

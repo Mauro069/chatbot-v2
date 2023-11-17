@@ -1,8 +1,12 @@
+import { useChat } from '../../../../context/Chat/context'
+import { CHAT_TYPES } from '../../../../context/Chat/types'
 import styles from './styles.module.css'
 
-export function Links ({ links, setLastLinks }) {
+export function Links () {
+  const { links, dispatch } = useChat()
+
   const handleClose = () => {
-    setLastLinks(null)
+    dispatch({ type: CHAT_TYPES.REMOVE_LINKS })
   }
 
   return (

@@ -1,8 +1,8 @@
-// api.js
-import { apiUrl } from './config' // Ajusta la ruta según tu estructura
+import { apiUrl } from '.'
+import { CHAT_TYPES } from '../context/Chat/types'
 
 export const addMessageToApi = async (input, dispatch) => {
-  dispatch({ type: 'ADD_MESSAGE', payload: { text: input, me: true } })
+  dispatch({ type: CHAT_TYPES.ADD_MESSAGE, payload: { text: input, me: true } })
 
   const requestBody = { input }
 
@@ -17,15 +17,32 @@ export const addMessageToApi = async (input, dispatch) => {
 
     if (response.ok) {
       const data = await response.json()
-      dispatch({ type: 'ADD_MESSAGE', payload: { text: data.message } })
+
+      if (data.links.length > 0) {
+        dispatch({
+          type: CHAT_TYPES.ADD_MESSAGE_WITH_LINKS,
+          payload: { message: { text: data.message }, links: data.links }
+        })
+
+        return
+      }
+
+      dispatch({
+        type: CHAT_TYPES.ADD_MESSAGE_SUCCESS,
+        payload: { text: data.message }
+      })
     } else {
       console.error('Error in the request:', response.statusText)
       dispatch({
-        type: 'ADD_MESSAGE',
+        type: CHAT_TYPES.ADD_MESSAGE_ERROR,
         payload: { text: 'An error occurred', error: true }
       })
     }
   } catch (error) {
     console.error('Error in the request:', error)
+    dispatch({
+      type: CHAT_TYPES.ADD_MESSAGE_ERROR,
+      payload: { text: 'An error occurred', error: true }
+    })
   }
 }

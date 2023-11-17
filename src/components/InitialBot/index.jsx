@@ -3,24 +3,20 @@ import styles from './styles.module.css'
 import { Banners } from './components/Banners'
 import { Chat } from './components/Chat'
 import { Links } from './components/Links'
-
-const initialMessage = {
-  text: 'Hey there! At Valtira, we solve hard technology problems, and we do it with a 😊 on our face. What brings you here today?'
-}
+import { useChat } from '../../context/Chat/context'
+import { CHAT_TYPES } from '../../context/Chat/types'
 
 export function InitialChat () {
-  const [expanded, setExpanded] = useState(false)
-  const [messages, setMessages] = useState([initialMessage])
-  const [lastLinks, setLastLinks] = useState(null)
+  const { isOpen, dispatch, links } = useChat()
 
-  const handleInitialChatClick = () => {
-    setExpanded(!expanded)
+  const openChat = () => {
+    dispatch({ type: CHAT_TYPES.TOGGLE_CHAT })
   }
 
   return (
     <div className={styles.chatContainer}>
-      {!expanded && (
-        <div onClick={handleInitialChatClick} className={styles.initialChat}>
+      {!isOpen && (
+        <div onClick={openChat} className={styles.initialChat}>
           <div>
             <img src='/assets/logo.svg' />
           </div>
@@ -35,20 +31,11 @@ export function InitialChat () {
         </div>
       )}
 
-      {expanded && (
+      {isOpen && (
         <div className={styles.openChat}>
-          <Chat
-            messages={messages}
-            setLastLinks={setLastLinks}
-            setMessages={setMessages}
-            closeChat={handleInitialChatClick}
-          />
+          <Chat />
 
-          {lastLinks ? (
-            <Links links={lastLinks} setLastLinks={setLastLinks} />
-          ) : (
-            <Banners />
-          )}
+          {links?.length > 0 ? <Links /> : <Banners />}
         </div>
       )}
     </div>
