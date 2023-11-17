@@ -1,7 +1,20 @@
+import { useChat } from '../../../../context/Chat/context'
 import { banners } from '../../../../utils/banners'
 import styles from './styles.module.css'
 
 export function Banners () {
+  const { hoverType } = useChat()
+
+  const isHidden = type => {
+    if (type !== hoverType && hoverType) {
+      return styles.hidden
+    }
+
+    if (hoverType === type) return styles.active
+
+    return ''
+  }
+
   return (
     <div className={styles.banners_container}>
       {banners.map((banner, index) => {
@@ -18,8 +31,10 @@ export function Banners () {
         return (
           <div
             key={index}
-            className={`${styles.banner}`}
-            style={{ background: banner.background }}
+            className={`${styles.banner} ${isHidden(banner.type)}`}
+            style={{
+              background: banner.background
+            }}
           >
             <img src={iconUrl} alt={`Icon for ${banner.title}`} />
 

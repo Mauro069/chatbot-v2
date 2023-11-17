@@ -1,3 +1,4 @@
+import { CHAT_TYPES } from '../../../../context/Chat/types'
 import { useChat } from '../../../../context/Chat/context'
 import React, { useEffect, useRef } from 'react'
 import styles from './styles.module.css'
@@ -65,7 +66,7 @@ export function Messages () {
 }
 
 const RenderLinkWithButton = ({ text }) => {
-  // const {dispatch} = useChat()
+  const { dispatch } = useChat()
   const buttonStartIndex = text.indexOf('<button')
 
   if (buttonStartIndex === -1) {
@@ -85,17 +86,29 @@ const RenderLinkWithButton = ({ text }) => {
 
   const buttonContent = buttonTag.replace(/<\/?button[^>]*>/g, '')
 
+  // dispatch({ type: CHAT_TYPES.SET_TYPE, payload: buttonContent })
+
   console.log(buttonContent)
 
   const beforeButton = text.substring(0, buttonStartIndex)
   const afterButton = text.substring(buttonEndIndex + '</button>'.length)
+
+  const handleHover = () => {
+    dispatch({ type: CHAT_TYPES.SET_TYPE, payload: buttonContent })
+  }
+
+  const handleMouseLeave = () => {
+    dispatch({ type: CHAT_TYPES.SET_TYPE, payload: '' })
+  }
 
   return (
     <>
       {beforeButton}
       {React.createElement('a', {
         className: `${styles.button}`,
-        dangerouslySetInnerHTML: { __html: buttonContent }
+        dangerouslySetInnerHTML: { __html: buttonContent },
+        onMouseOver: handleHover,
+        onMouseLeave: handleMouseLeave
       })}
       {afterButton}
     </>

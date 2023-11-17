@@ -2,7 +2,8 @@ export const banners = [
   {
     icon: 'work',
     title: 'Our Work',
-    type: 'Work samples & Case studies',
+    // type: 'Work samples & Case studies',
+    type: 'services',
     background: '#1781E2'
   },
   {
@@ -33,7 +34,7 @@ export const banners = [
   {
     icon: 'union',
     title: 'Services',
-    type: 'Lorem',
+    type: 'services',
     background: '#1781E2'
   },
   {

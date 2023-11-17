@@ -48,6 +48,12 @@ export const reducer = (state, action) => {
         links: null
       }
 
+    case CHAT_TYPES.SET_TYPE:
+      return {
+        ...state,
+        hoverType: action.payload
+      }
+
     default:
       return state
   }

@@ -19,6 +19,15 @@
   color: white;
   transition-duration: 0.3s;
   animation: fadeInAnimation 0.3s ease-in-out forwards;
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0.25 !important;
+}
+
+.active {
+  transform: scale(1.05);
 }
 
 .banner:hover {

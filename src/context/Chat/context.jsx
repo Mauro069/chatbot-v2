@@ -12,7 +12,8 @@ const initialState = {
   messages: [initialMessage],
   links: null,
   disabled: false,
-  loading: false
+  loading: false,
+  hoverType: null
 }
 
 const ChatProvider = ({ children }) => {
@@ -30,12 +31,14 @@ const useChat = () => {
   if (!context) {
     throw new Error('useChat debe ser utilizado dentro de MessagesProvider')
   }
+
   return {
     isOpen: context.state.isOpen,
     messages: context.state.messages,
     links: context.state.links,
-    loading: context.state.loading,
     disabled: context.state.disabled,
+    loading: context.state.loading,
+    hoverType: context.state.hoverType,
     dispatch: context.dispatch
   }
 }
