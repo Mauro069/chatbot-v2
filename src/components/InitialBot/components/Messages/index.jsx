@@ -21,12 +21,7 @@ export function Messages () {
 
   return (
     <div className={styles.messages} ref={messagesContainerRef}>
-      {[
-        ...messages,
-        {
-          text: "We offer both DevOps solutions architecture as well as just-in-time and managed <button class='services'>services</button> around cloud-based applications and integrations with a keen eye for scalability, uptime, and repeatability"
-        }
-      ]?.map((message, index) => {
+      {[...messages]?.map((message, index) => {
         const time = '08:55'
 
         let messageType
@@ -69,9 +64,7 @@ const RenderLinkWithButton = ({ text }) => {
   const { dispatch } = useChat()
   const buttonStartIndex = text.indexOf('<button')
 
-  if (buttonStartIndex === -1) {
-    return <>{text}</>
-  }
+  if (buttonStartIndex === -1) return <>{text}</>
 
   const buttonEndIndex = text.indexOf('</button>', buttonStartIndex)
 
@@ -85,10 +78,6 @@ const RenderLinkWithButton = ({ text }) => {
   )
 
   const buttonContent = buttonTag.replace(/<\/?button[^>]*>/g, '')
-
-  // dispatch({ type: CHAT_TYPES.SET_TYPE, payload: buttonContent })
-
-  console.log(buttonContent)
 
   const beforeButton = text.substring(0, buttonStartIndex)
   const afterButton = text.substring(buttonEndIndex + '</button>'.length)

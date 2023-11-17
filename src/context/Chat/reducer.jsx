@@ -8,6 +8,13 @@ export const reducer = (state, action) => {
         isOpen: !state.isOpen
       }
 
+    case CHAT_TYPES.START_LOADING:
+      return {
+        ...state,
+        loading: true,
+        disabled: true
+      }
+
     case CHAT_TYPES.ADD_MESSAGE:
       return {
         ...state,
@@ -21,23 +28,12 @@ export const reducer = (state, action) => {
       return {
         ...state,
         messages: [...state.messages, action.payload.message],
-        links: action.payload.links,
-        loading: false,
-        disabled: false
+        links: action.payload.links
       }
 
-    case CHAT_TYPES.ADD_MESSAGE_SUCCESS:
+    case CHAT_TYPES.END_LOADING:
       return {
         ...state,
-        messages: [...state.messages, action.payload],
-        loading: false,
-        disabled: false
-      }
-
-    case CHAT_TYPES.ADD_MESSAGE_ERROR:
-      return {
-        ...state,
-        messages: [...state.messages, action.payload],
         loading: false,
         disabled: false
       }

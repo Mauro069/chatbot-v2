@@ -1,15 +1,12 @@
+import { initialMessage, testButton } from '../../utils/initialMessage'
 import { createContext, useContext, useReducer } from 'react'
 import { reducer } from './reducer'
 
 const ChatContext = createContext()
 
-const initialMessage = {
-  text: 'Hey there! At Valtira, we solve hard technology problems, and we do it with a 😊 on our face. What brings you here today?'
-}
-
 const initialState = {
   isOpen: false,
-  messages: [initialMessage],
+  messages: [initialMessage, testButton],
   links: null,
   disabled: false,
   loading: false,
@@ -28,8 +25,9 @@ const ChatProvider = ({ children }) => {
 
 const useChat = () => {
   const context = useContext(ChatContext)
+
   if (!context) {
-    throw new Error('useChat debe ser utilizado dentro de MessagesProvider')
+    throw new Error('useChat debe ser utilizado dentro de ChatProvider')
   }
 
   return {

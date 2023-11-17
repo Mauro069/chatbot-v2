@@ -3,6 +3,7 @@ import { CHAT_TYPES } from '../context/Chat/types'
 
 export const addMessageToApi = async (input, dispatch) => {
   dispatch({ type: CHAT_TYPES.ADD_MESSAGE, payload: { text: input, me: true } })
+  dispatch({ type: CHAT_TYPES.START_LOADING })
 
   const requestBody = { input }
 
@@ -28,7 +29,7 @@ export const addMessageToApi = async (input, dispatch) => {
       }
 
       dispatch({
-        type: CHAT_TYPES.ADD_MESSAGE_SUCCESS,
+        type: CHAT_TYPES.ADD_MESSAGE,
         payload: { text: data.message }
       })
     } else {
@@ -45,4 +46,6 @@ export const addMessageToApi = async (input, dispatch) => {
       payload: { text: 'An error occurred', error: true }
     })
   }
+
+  dispatch({ type: CHAT_TYPES.END_LOADING })
 }
