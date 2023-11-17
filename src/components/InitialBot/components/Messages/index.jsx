@@ -1,7 +1,9 @@
+import { useMessages } from '../../../../context/MessagesContext'
 import { useEffect, useRef } from 'react'
 import styles from './styles.module.css'
 
-export function Messages ({ messages }) {
+export function Messages () {
+  const { messages } = useMessages()
   const messagesContainerRef = useRef(null)
   const lastMessageRef = useRef(null)
 

@@ -1,49 +1,18 @@
 import { Messages } from '../Messages'
 import styles from './styles.module.css'
 import { InputChat } from '../InputChat'
+import { useMessages } from '../../../../context/MessagesContext'
 
-const apiUrl = import.meta.env.VITE_API_URL
 
-export function Chat ({ messages, setMessages, setLastLinks, closeChat }) {
+
+export function Chat ({ setMessages, setLastLinks, closeChat }) {
+  const { addMessage } = useMessages()
+
   const handleSubmit = async e => {
     e.preventDefault()
 
-    setMessages(prevValues => [
-      ...prevValues,
-      { text: e.target.value, me: true }
-    ])
-
-    const requestBody = {
-      input: e.target.value
-    }
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestBody)
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-
-        if (data.links.length > 0) setLastLinks(data.links)
-        else setLastLinks(null)
-
-        // Handle server response if necessary
-        setMessages(prevValues => [...prevValues, { text: data.message }])
-      } else {
-        console.error('Error in the request:', response.statusText)
-        setMessages(prevValues => [
-          ...prevValues,
-          { text: 'An error occurred', error: true }
-        ])
-      }
-    } catch (error) {
-      console.error('Error in the request:', error)
-    }
+    const inputText = e.target.value
+    addMessage(inputText)
   }
 
   return (
@@ -53,7 +22,7 @@ export function Chat ({ messages, setMessages, setLastLinks, closeChat }) {
         <img src='/assets/back.svg' onClick={closeChat} />
       </header>
 
-      <Messages messages={messages} />
+      <Messages />
 
       <div className={styles.chat_button_container}>
         <InputChat handleSubmit={handleSubmit} />
