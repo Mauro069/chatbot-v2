@@ -26,6 +26,7 @@ export const addMessageToApi = async (input, dispatch) => {
           payload: { message: { text: data.message }, banners: data.links }
         })
 
+        dispatch({ type: CHAT_TYPES.END_LOADING })
         return
       }
 

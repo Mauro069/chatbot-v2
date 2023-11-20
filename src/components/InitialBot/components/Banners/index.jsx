@@ -2,6 +2,8 @@ import { useChat } from '../../../../context/Chat/context'
 import { CHAT_TYPES } from '../../../../context/Chat/types'
 import styles from './styles.module.css'
 
+const iconUrl = `/assets/work.svg`
+
 export function Banners () {
   const { hoverType, banners, isDefaultBanners, dispatch } = useChat()
 
@@ -21,10 +23,11 @@ export function Banners () {
 
   return (
     <div className={styles.container}>
-      {!isDefaultBanners && <img src='/assets/back.svg' onClick={handleClose} />}
+      {!isDefaultBanners && (
+        <img src='/assets/back.svg' onClick={handleClose} />
+      )}
       <div className={styles.banners_container}>
         {banners.map((banner, index) => {
-          const iconUrl = `/assets/${banner.icon}.svg`
           const isDark = banner.dark
 
           const bannerDescriptionContainerClass = `${
@@ -39,7 +42,7 @@ export function Banners () {
               key={index}
               className={`${styles.banner} ${isHidden(banner.type)}`}
               style={{
-                background: banner.background
+                background: banner.color
               }}
             >
               <img src={iconUrl} alt={`Icon for ${banner.title}`} />
@@ -49,8 +52,9 @@ export function Banners () {
                   <span className={styles.banner_description_title}>
                     {banner.title}
                   </span>
+                  <p className={styles.description}>{banner.excerpt}</p>
                 </div>
-                <p className={bannerDescriptionTypeClass}>{banner.type}</p>
+                <p className={bannerDescriptionTypeClass}>{banner.category}</p>
               </div>
             </div>
           )
