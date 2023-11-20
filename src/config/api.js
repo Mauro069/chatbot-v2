@@ -1,5 +1,6 @@
 import { apiUrl } from '.'
 import { CHAT_TYPES } from '../context/Chat/types'
+import { testResponse } from '../utils/resp'
 
 export const addMessageToApi = async (input, dispatch) => {
   dispatch({ type: CHAT_TYPES.ADD_MESSAGE, payload: { text: input, me: true } })
@@ -8,21 +9,21 @@ export const addMessageToApi = async (input, dispatch) => {
   const requestBody = { input }
 
   try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    })
+    // const response = await fetch(apiUrl, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(requestBody)
+    // })
 
-    if (response.ok) {
-      const data = await response.json()
+    if (true) {
+      const data = testResponse
 
       if (data.links.length > 0) {
         dispatch({
           type: CHAT_TYPES.ADD_MESSAGE_WITH_LINKS,
-          payload: { message: { text: data.message }, links: data.links }
+          payload: { message: { text: data.message }, banners: data.links }
         })
 
         return

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import styles from './styles.module.css'
 import { Banners } from './components/Banners'
 import { Chat } from './components/Chat'

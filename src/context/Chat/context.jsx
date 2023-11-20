@@ -1,12 +1,15 @@
 import { initialMessage, testButton } from '../../utils/initialMessage'
 import { createContext, useContext, useReducer } from 'react'
 import { reducer } from './reducer'
+import { banners } from '../../utils/banners'
 
 const ChatContext = createContext()
 
 const initialState = {
   isOpen: false,
   messages: [initialMessage, testButton],
+  banners: banners,
+  isDefaultBanners: true,
   links: null,
   disabled: false,
   loading: false,
@@ -33,6 +36,8 @@ const useChat = () => {
   return {
     isOpen: context.state.isOpen,
     messages: context.state.messages,
+    banners: context.state.banners,
+    isDefaultBanners: context.state.isDefaultBanners,
     links: context.state.links,
     disabled: context.state.disabled,
     loading: context.state.loading,

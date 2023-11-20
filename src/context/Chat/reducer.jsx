@@ -1,3 +1,4 @@
+import { banners } from '../../utils/banners'
 import { CHAT_TYPES } from './types'
 
 export const reducer = (state, action) => {
@@ -28,7 +29,8 @@ export const reducer = (state, action) => {
       return {
         ...state,
         messages: [...state.messages, action.payload.message],
-        links: action.payload.links
+        banners: action.payload.banners,
+        isDefaultBanners: false
       }
 
     case CHAT_TYPES.END_LOADING:
@@ -42,6 +44,13 @@ export const reducer = (state, action) => {
       return {
         ...state,
         links: null
+      }
+
+    case CHAT_TYPES.DEFAULT_BANNERS:
+      return {
+        ...state,
+        banners: banners,
+        isDefaultBanners: true
       }
 
     case CHAT_TYPES.SET_TYPE:
