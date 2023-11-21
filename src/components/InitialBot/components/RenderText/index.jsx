@@ -22,13 +22,15 @@ export function RenderText ({ text }) {
 
   const buttonContent = buttonTag.replace(/<\/?button[^>]*>/g, '')
 
-  console.log("buttonContent", buttonContent)
-
   const beforeButton = text.substring(0, buttonStartIndex)
   const afterButton = text.substring(buttonEndIndex + '</button>'.length)
 
   const handleHover = () => {
     dispatch({ type: CHAT_TYPES.SET_TYPE, payload: buttonContent })
+  }
+
+  const handleClick = () => {
+    dispatch({ type: CHAT_TYPES.SET_LINKS, payload: buttonContent })
   }
 
   const handleMouseLeave = () => {
@@ -42,7 +44,8 @@ export function RenderText ({ text }) {
         className: `${styles.button}`,
         dangerouslySetInnerHTML: { __html: buttonContent },
         onMouseOver: handleHover,
-        onMouseLeave: handleMouseLeave
+        onMouseLeave: handleMouseLeave,
+        onClick: handleClick
       })}
       {afterButton}
     </>

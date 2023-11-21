@@ -39,16 +39,22 @@ export const reducer = (state, action) => {
         disabled: false
       }
 
-    case CHAT_TYPES.REMOVE_LINKS:
-      return {
-        ...state,
-        links: null
-      }
-
     case CHAT_TYPES.SET_TYPE:
       return {
         ...state,
         hoverType: action.payload
+      }
+
+    case CHAT_TYPES.SET_LINKS:
+      return {
+        ...state,
+        links: action.payload
+      }
+
+    case CHAT_TYPES.REMOVE_LINKS:
+      return {
+        ...state,
+        links: null
       }
 
     default:
