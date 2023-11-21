@@ -36,11 +36,11 @@
 }
 
 .active {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .banner:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .banner_description_container {

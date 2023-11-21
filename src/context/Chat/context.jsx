@@ -9,7 +9,6 @@ const initialState = {
   isOpen: false,
   messages: [initialMessage, testButton],
   banners: banners,
-  isDefaultBanners: true,
   links: null,
   disabled: false,
   loading: false,
@@ -33,16 +32,28 @@ const useChat = () => {
     throw new Error('useChat debe ser utilizado dentro de ChatProvider')
   }
 
+  const { hoverType } = context.state
+
+  const isHidden = type => {
+    if (type !== hoverType && hoverType && hoverType !== '') {
+      return 'hidden'
+    }
+
+    if (hoverType === type) return 'active'
+
+    return ''
+  }
+
   return {
     isOpen: context.state.isOpen,
     messages: context.state.messages,
     banners: context.state.banners,
-    isDefaultBanners: context.state.isDefaultBanners,
     links: context.state.links,
     disabled: context.state.disabled,
     loading: context.state.loading,
     hoverType: context.state.hoverType,
-    dispatch: context.dispatch
+    dispatch: context.dispatch,
+    isHidden: isHidden
   }
 }
 

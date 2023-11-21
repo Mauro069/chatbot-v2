@@ -29,8 +29,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         messages: [...state.messages, action.payload.message],
-        banners: action.payload.banners,
-        isDefaultBanners: false
+        banners: action.payload.banners
       }
 
     case CHAT_TYPES.END_LOADING:
@@ -44,13 +43,6 @@ export const reducer = (state, action) => {
       return {
         ...state,
         links: null
-      }
-
-    case CHAT_TYPES.DEFAULT_BANNERS:
-      return {
-        ...state,
-        banners: banners,
-        isDefaultBanners: true
       }
 
     case CHAT_TYPES.SET_TYPE:

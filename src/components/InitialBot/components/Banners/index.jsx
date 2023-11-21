@@ -1,31 +1,18 @@
 import { useChat } from '../../../../context/Chat/context'
-import { CHAT_TYPES } from '../../../../context/Chat/types'
 import styles from './styles.module.css'
 
 const iconUrl = `/assets/work.svg`
 
 export function Banners () {
-  const { hoverType, banners, isDefaultBanners, dispatch } = useChat()
+  const { banners, isHidden } = useChat()
 
-  const handleClose = () => {
-    dispatch({ type: CHAT_TYPES.DEFAULT_BANNERS })
-  }
-
-  const isHidden = type => {
-    if (type !== hoverType && hoverType) {
-      return styles.hidden
-    }
-
-    if (hoverType === type) return styles.active
-
-    return ''
+  const showBanner = type => {
+    const bannerType = isHidden(type.toLowerCase())
+    return styles[bannerType]
   }
 
   return (
     <div className={styles.container}>
-      {!isDefaultBanners && (
-        <img src='/assets/back.svg' onClick={handleClose} />
-      )}
       <div className={styles.banners_container}>
         {banners.map((banner, index) => {
           const isDark = banner.dark
@@ -40,7 +27,7 @@ export function Banners () {
           return (
             <div
               key={index}
-              className={`${styles.banner} ${isHidden(banner.type)}`}
+              className={`${styles.banner} ${showBanner(banner.category)}`}
               style={{
                 background: banner.color
               }}

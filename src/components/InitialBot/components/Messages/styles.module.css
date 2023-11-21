@@ -88,10 +88,3 @@
     opacity: 1;
   }
 }
-
-.button {
-  background-color: #1781E250;
-  padding: .2rem;
-  cursor: pointer;
-  border-radius: 4px;
-}
