@@ -7,8 +7,7 @@ export function Banners () {
   const { banners, isHidden } = useChat()
 
   const showBanner = type => {
-    const bannerType = isHidden(type.toLowerCase())
-    return styles[bannerType]
+    return isHidden(type.toLowerCase())
   }
 
   return (
@@ -25,12 +24,18 @@ export function Banners () {
           } ${isDark ? styles.dark : ''}`
 
           return (
-            <div
-              key={index}
-              className={`${styles.banner} ${showBanner(banner.category)}`}
+            <a
+              className={`${styles.banner} ${
+                styles[showBanner(banner.category)]
+              }`}
               style={{
+                opacity:
+                  showBanner(banner.category) === 'hidden' ? '0.25' : '1',
                 background: banner.color
               }}
+              key={index}
+              href={banner.link}
+              target='_blank'
             >
               <img src={iconUrl} alt={`Icon for ${banner.title}`} />
 
@@ -43,7 +48,7 @@ export function Banners () {
                 </div>
                 <p className={bannerDescriptionTypeClass}>{banner.category}</p>
               </div>
-            </div>
+            </a>
           )
         })}
       </div>

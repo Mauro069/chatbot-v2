@@ -27,12 +27,8 @@
   align-items: flex-start;
   color: white;
   transition-duration: 0.3s;
-  animation: fadeInAnimation 0.3s ease-in-out forwards;
-  opacity: 1;
-}
-
-.hidden {
-  opacity: 0.25 !important;
+  transition-duration: 0.3s;
+  text-decoration: none;
 }
 
 .active {
@@ -123,15 +119,6 @@
   grid-column-end: 3;
   grid-row-start: 4;
   grid-row-end: 5;
-}
-
-@keyframes fadeInAnimation {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .description {
