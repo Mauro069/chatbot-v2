@@ -3,11 +3,6 @@
   max-height: 650px;
   width: 1000px;
   max-width: 1000px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 1.5rem;
 
   & img {
     cursor: pointer;
@@ -20,10 +15,11 @@
 }
 
 .links {
+  margin-top: 22px;
+  height: 100%;
+  max-height: 600px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  flex: 1;
+  grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
   grid-gap: 16px;
   animation: fadeInAnimation 0.3s ease-in-out forwards;
 }

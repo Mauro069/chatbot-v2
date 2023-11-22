@@ -22,7 +22,7 @@ export const banners = [
   {
     icon: 'info',
     title: 'About',
-    category: 'company profile',
+    category: 'services',
     color: '#8B12EB'
   },
   {
@@ -46,7 +46,7 @@ export const banners = [
   {
     icon: 'social_media',
     title: 'Social media',
-    category: 'Follow us',
+    category: 'services',
     color: '#D6308F'
   }
 ]
