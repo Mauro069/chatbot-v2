@@ -30,7 +30,7 @@ export function Messages () {
 
         const isLastMessage = index === messages.length - 1
 
-        console.log("message", message)
+        console.log('message', message)
 
         return (
           <div
@@ -57,9 +57,9 @@ export function Messages () {
               <RenderText text={message.text} />
             </div>
 
-            <div>
+            <div className={styles.banner}>
               {message.banners?.map(banner => (
-                <div>{JSON.stringify(banner)}</div>
+                <div className={styles.banner}>{JSON.stringify(banner)}</div>
               ))}
             </div>
           </div>
