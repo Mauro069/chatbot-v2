@@ -8,7 +8,7 @@ const ChatContext = createContext()
 const initialState = {
   isOpen: false,
   messages: [initialMessage, testButton],
-  banners: banners,
+  currentBanners: banners,
   links: null,
   disabled: false,
   loading: false,
@@ -47,7 +47,7 @@ const useChat = () => {
   return {
     isOpen: context.state.isOpen,
     messages: context.state.messages,
-    banners: context.state.banners,
+    currentBanners: context.state.currentBanners,
     links: context.state.links,
     disabled: context.state.disabled,
     loading: context.state.loading,

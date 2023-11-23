@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 const iconUrl = `/assets/work.svg`
 
 export function Banners () {
-  const { banners, isHidden } = useChat()
+  const { currentBanners, isHidden } = useChat()
 
   const showBanner = type => {
     return isHidden(type?.toLowerCase())
@@ -13,7 +13,7 @@ export function Banners () {
   return (
     <div className={styles.container}>
       <div className={styles.banners_container}>
-        {banners.map((banner, index) => {
+        {currentBanners?.map((banner, index) => {
           const isDark = banner.dark
 
           const bannerDescriptionContainerClass = `${
