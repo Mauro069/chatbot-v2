@@ -27,7 +27,7 @@ export const addMessageToApi = async (input, dispatch) => {
       }
 
       const payload = {
-        message: data.message
+        text: data.message
       }
 
       if (data.links.length > 0) {
@@ -41,7 +41,7 @@ export const addMessageToApi = async (input, dispatch) => {
 
       dispatch({
         type: CHAT_TYPES.ADD_MESSAGE,
-        payload: { text: data.message }
+        payload
       })
     } else {
       console.error('Error in the request:', response.statusText)

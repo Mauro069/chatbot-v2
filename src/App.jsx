@@ -1,11 +1,13 @@
 import './App.css'
-import { InitialChat } from './components/InitialBot'
+import { DesktopChat } from './components/DesktopChat'
+import { MobileChat } from './components/MobileChat'
 
 function App () {
   return (
     <div className='app'>
       <div className='bot_container'>
-        <InitialChat />
+        {/* <DesktopChat /> */}
+        <MobileChat />
       </div>
     </div>
   )

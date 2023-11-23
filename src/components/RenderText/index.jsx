@@ -1,6 +1,6 @@
 import React from 'react'
-import { CHAT_TYPES } from '../../../../context/Chat/types'
-import { useChat } from '../../../../context/Chat/context'
+import { CHAT_TYPES } from '../../context/Chat/types'
+import { useChat } from '../../context/Chat/context'
 import styles from './styles.module.css'
 
 export function RenderText ({ text }) {

@@ -1,6 +1,6 @@
 import { CHAT_TYPES } from '../../../../context/Chat/types'
 import { useChat } from '../../../../context/Chat/context'
-import { InputChat } from '../InputChat'
+import { InputChat } from '../../../InputChat'
 import { Messages } from '../Messages'
 
 import styles from './styles.module.css'

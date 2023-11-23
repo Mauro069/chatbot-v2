@@ -1,6 +1,6 @@
-import { useChat } from '../../../../context/Chat/context'
-import { addMessageToApi } from '../../../../config/api'
-import { Loader } from '../../../Loader'
+import { useChat } from '../../context/Chat/context'
+import { addMessageToApi } from '../../config/api'
+import { Loader } from '../Loader'
 import { useState } from 'react'
 
 import styles from './styles.module.css'

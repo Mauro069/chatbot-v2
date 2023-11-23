@@ -5,7 +5,7 @@ import { Links } from './components/Links'
 import { useChat } from '../../context/Chat/context'
 import { CHAT_TYPES } from '../../context/Chat/types'
 
-export function InitialChat () {
+export function MobileChat () {
   const { isOpen, dispatch, links } = useChat()
 
   const openChat = () => {
@@ -34,7 +34,7 @@ export function InitialChat () {
         <div className={styles.openChat}>
           <Chat />
 
-          {links?.length > 0 ? <Links /> : <Banners />}
+          {/* {links?.length > 0 ? <Links /> : <Banners />} */}
         </div>
       )}
     </div>

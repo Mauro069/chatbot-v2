@@ -1,7 +1,7 @@
 import { useChat } from '../../../../context/Chat/context'
 import React, { useEffect, useRef } from 'react'
+import { RenderText } from '../../../RenderText'
 import styles from './styles.module.css'
-import { RenderText } from '../RenderText'
 
 export function Messages () {
   const { messages } = useChat()
