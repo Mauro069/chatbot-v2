@@ -7,7 +7,7 @@ export function Banners () {
   const { banners, isHidden } = useChat()
 
   const showBanner = type => {
-    return isHidden(type.toLowerCase())
+    return isHidden(type?.toLowerCase())
   }
 
   return (

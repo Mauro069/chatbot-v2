@@ -10,7 +10,7 @@ export function Links () {
   }
 
   const bannersFiltered = banners.filter(
-    banner => banner.category.toLowerCase() === links
+    banner => banner.category?.toLowerCase() === links
   )
 
   return (
