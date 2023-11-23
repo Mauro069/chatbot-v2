@@ -26,14 +26,17 @@ export const addMessageToApi = async (input, dispatch) => {
         })
       }
 
-      if (data.links.length > 0) {
-        dispatch({
-          type: CHAT_TYPES.ADD_MESSAGE_WITH_LINKS,
-          payload: { message: { text: data.message }, banners: data.links }
-        })
+      const payload = {
+        message: data.message
+      }
 
-        dispatch({ type: CHAT_TYPES.END_LOADING })
-        return
+      if (data.links.length > 0) {
+        payload.banners = data.links
+
+        dispatch({
+          type: CHAT_TYPES.SET_CURRENT_BANNERS,
+          payload: data.links
+        })
       }
 
       dispatch({

@@ -25,13 +25,6 @@ export const reducer = (state, action) => {
         disabled: true
       }
 
-    case CHAT_TYPES.ADD_MESSAGE_WITH_LINKS:
-      return {
-        ...state,
-        messages: [...state.messages, action.payload.message],
-        banners: action.payload.banners
-      }
-
     case CHAT_TYPES.END_LOADING:
       return {
         ...state,
@@ -49,6 +42,12 @@ export const reducer = (state, action) => {
       return {
         ...state,
         links: action.payload
+      }
+
+    case CHAT_TYPES.SET_CURRENT_BANNERS:
+      return {
+        ...state,
+        currentBanners: action.payload
       }
 
     case CHAT_TYPES.REMOVE_LINKS:
