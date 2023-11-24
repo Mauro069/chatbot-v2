@@ -2,7 +2,7 @@ import { useChat } from '../../../../context/Chat/context'
 import React, { useEffect, useRef } from 'react'
 import { RenderText } from '../../../RenderText'
 import styles from './styles.module.css'
-import { banners } from '../../../../utils/banners'
+import { Banners } from '../Banners'
 
 export function Messages () {
   const { messages } = useChat()
@@ -57,11 +57,7 @@ export function Messages () {
               <RenderText text={message.text} />
             </div>
 
-            <div className={styles.banner}>
-              {message.banners?.map(banner => (
-                <div className={styles.banner}>{JSON.stringify(banner)}</div>
-              ))}
-            </div>
+            {message?.banners?.length > 0 && <Banners banners={message.banners} />}
           </div>
         )
       })}

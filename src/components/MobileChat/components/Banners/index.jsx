@@ -3,17 +3,11 @@ import styles from './styles.module.css'
 
 const iconUrl = `/assets/work.svg`
 
-export function Banners () {
-  const { currentBanners, isHidden } = useChat()
-
-  const showBanner = type => {
-    return isHidden(type?.toLowerCase())
-  }
-
+export function Banners ({ banners }) {
   return (
     <div className={styles.container}>
       <div className={styles.banners_container}>
-        {currentBanners?.map((banner, index) => {
+        {banners?.map((banner, index) => {
           const isDark = banner.dark
 
           const bannerDescriptionContainerClass = `${
@@ -25,12 +19,8 @@ export function Banners () {
 
           return (
             <a
-              className={`${styles.banner} ${
-                styles[showBanner(banner.category)]
-              }`}
+              className={styles.banner}
               style={{
-                opacity:
-                  showBanner(banner.category) === 'hidden' ? '0.25' : '1',
                 background: banner.color
               }}
               key={index}
@@ -39,15 +29,9 @@ export function Banners () {
             >
               <img src={iconUrl} alt={`Icon for ${banner.title}`} />
 
-              <div className={bannerDescriptionContainerClass}>
-                <div className={styles.banner_texts}>
-                  <span className={styles.banner_description_title}>
-                    {banner.title}
-                  </span>
-                  <p className={styles.description}>{banner.excerpt}</p>
-                </div>
-                <p className={bannerDescriptionTypeClass}>{banner.category}</p>
-              </div>
+              {/* <span>{banner.title}</span>  */}
+
+              <span>Services</span>
             </a>
           )
         })}
