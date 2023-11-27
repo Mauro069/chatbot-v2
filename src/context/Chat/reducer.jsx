@@ -1,4 +1,3 @@
-import { banners } from '../../utils/banners'
 import { CHAT_TYPES } from './types'
 
 export const reducer = (state, action) => {
