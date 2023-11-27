@@ -3,13 +3,13 @@ import { CHAT_TYPES } from '../../../../context/Chat/types'
 import styles from './styles.module.css'
 
 export function Links () {
-  const { links, dispatch, banners } = useChat()
+  const { links, dispatch, currentBanners } = useChat()
 
   const handleClose = () => {
     dispatch({ type: CHAT_TYPES.REMOVE_LINKS })
   }
 
-  const bannersFiltered = banners.filter(
+  const bannersFiltered = currentBanners?.filter(
     banner => banner.category?.toLowerCase() === links
   )
 
