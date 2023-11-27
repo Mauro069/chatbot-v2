@@ -10,7 +10,7 @@
   width: 100%;
   display: flex;
   gap: 8px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .banner {
