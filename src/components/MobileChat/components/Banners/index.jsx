@@ -19,9 +19,7 @@ export function Banners ({ banners }) {
             >
               <img src={iconUrl} alt={`Icon for ${banner.title}`} />
 
-              {/* <span>{banner.title}</span>  */}
-
-              <span>Services</span>
+              <span>{banner.title}</span>
             </a>
           )
         })}

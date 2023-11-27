@@ -1,5 +1,8 @@
+import { banners } from './banners'
+
 export const initialMessage = {
-  text: 'Hey there! At Valtira, we solve hard technology problems, and we do it with a 😊 on our face. What brings you here today?'
+  text: 'Hey there! At Valtira, we solve hard technology problems, and we do it with a 😊 on our face. What brings you here today?',
+  banners: banners
 }
 
 export const testButton = {
