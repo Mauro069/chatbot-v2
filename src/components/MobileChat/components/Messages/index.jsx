@@ -29,9 +29,7 @@ export function Messages () {
         if (message.me) messageType = 'me'
 
         const isLastMessage = index === messages.length - 1
-
-        console.log('message', message)
-
+        
         return (
           <div
             key={index}
