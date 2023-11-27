@@ -7,7 +7,7 @@ const ChatContext = createContext()
 
 const initialState = {
   isOpen: false,
-  messages: [initialMessage],
+  messages: [initialMessage, testButton],
   currentBanners: banners,
   links: null,
   disabled: false,

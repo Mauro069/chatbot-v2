@@ -29,7 +29,7 @@ export function Messages () {
         if (message.me) messageType = 'me'
 
         const isLastMessage = index === messages.length - 1
-        
+
         return (
           <div
             key={index}
@@ -55,7 +55,9 @@ export function Messages () {
               <RenderText text={message.text} />
             </div>
 
-            {message?.banners?.length > 0 && <Banners banners={message.banners} />}
+            {message?.banners?.length > 0 && (
+              <Banners banners={message.banners} />
+            )}
           </div>
         )
       })}
