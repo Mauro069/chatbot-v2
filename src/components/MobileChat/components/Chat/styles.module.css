@@ -1,7 +1,6 @@
 .chat {
   border: 0.5px solid rgb(239, 239, 239);
-  height: 100vh;
-  max-height: 90vh;
+  height: 90vh;
   max-width: 450px;
   display: flex;
   flex-direction: column;
@@ -52,5 +51,11 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 450px) {
+  .chat {
+    height: 100vh;
   }
 }
