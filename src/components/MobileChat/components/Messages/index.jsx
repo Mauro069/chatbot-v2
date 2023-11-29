@@ -29,8 +29,6 @@ export function Messages () {
         if (message.me) messageType = 'me'
 
         const isLastMessage = index === messages.length - 1
-
-        console.log(message.error)
         const isError = message.error ? styles.error : ''
 
         return (
