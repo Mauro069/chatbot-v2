@@ -14,7 +14,6 @@
 }
 
 .banner {
-  min-width: 100px;
   height: 100px;
   cursor: pointer;
   border-radius: 10px;
@@ -34,7 +33,7 @@
   }
 }
 
-@media (max-width: 444px) {
+@media (max-width: 400px) {
   .banners_container {
     grid-template-columns: repeat(2, 1fr);
   }
