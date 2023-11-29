@@ -6,7 +6,7 @@ export function Banners ({ banners }) {
   return (
     <div className={styles.container}>
       <div className={styles.banners_container}>
-        {banners?.map((banner, index) => {
+        {banners?.slice(0, 6)?.map((banner, index) => {
           return (
             <a
               className={styles.banner}
