@@ -21,7 +21,7 @@ export const addMessageToApi = async (input, dispatch) => {
 
       if (data.message === '') {
         dispatch({
-          type: CHAT_TYPES.ADD_MESSAGE_ERROR,
+          type: CHAT_TYPES.ADD_MESSAGE,
           payload: { text: 'An error occurred', error: true }
         })
       }
@@ -46,14 +46,14 @@ export const addMessageToApi = async (input, dispatch) => {
     } else {
       console.error('Error in the request:', response.statusText)
       dispatch({
-        type: CHAT_TYPES.ADD_MESSAGE_ERROR,
+        type: CHAT_TYPES.ADD_MESSAGE,
         payload: { text: 'An error occurred', error: true }
       })
     }
   } catch (error) {
     console.error('Error in the request:', error)
     dispatch({
-      type: CHAT_TYPES.ADD_MESSAGE_ERROR,
+      type: CHAT_TYPES.ADD_MESSAGE,
       payload: { text: 'An error occurred', error: true }
     })
   }

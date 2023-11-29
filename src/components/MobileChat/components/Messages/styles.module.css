@@ -80,6 +80,10 @@
   border: 3px solid #6945cc;
 }
 
+.error {
+  color: #ee6161;
+}
+
 @keyframes fadeInAnimation {
   from {
     opacity: 0;

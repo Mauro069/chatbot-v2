@@ -30,6 +30,9 @@ export function Messages () {
 
         const isLastMessage = index === messages.length - 1
 
+        console.log(message.error)
+        const isError = message.error ? styles.error : ''
+
         return (
           <div
             key={index}
@@ -51,7 +54,11 @@ export function Messages () {
               <span className={styles.message_time}>{time}</span>
             </div>
 
-            <div className={`${styles.message} ${styles[messageType] || ''}`}>
+            <div
+              className={`${styles.message} ${
+                styles[messageType] || ''
+              } ${isError}`}
+            >
               <RenderText text={message.text} />
             </div>
 
