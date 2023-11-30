@@ -30,8 +30,29 @@ export function Messages () {
     const messagesContainer = messagesContainerRef.current
 
     if (messagesContainer) {
-      const visibleMessages = getVisibleMessages(messagesContainer)
-      if (visibleMessages[0]?.banners) toggleBanners(visibleMessages[0].banners)
+      const visibleMessages = getVisibleMessages(messagesContainer, messages)
+
+      const messagesFinds = visibleMessages.map(visibleMessage => {
+        const find = messages.find(
+          message =>
+            message.text?.toLowerCase() === visibleMessage.text?.toLowerCase()
+        )
+
+        find.height = visibleMessage.height
+
+        return find
+      })
+
+      const message = messagesFinds.reduce((moreHeightMsg, currentMsg) => {
+        if (currentMsg.height && currentMsg.banners && !currentMsg.default) {
+          if (!moreHeightMsg || currentMsg.height > moreHeightMsg.height) {
+            return currentMsg
+          }
+        }
+        return moreHeightMsg
+      }, null)
+
+      if (message) toggleBanners(message.banners)
 
       const isScrolledToTop = messagesContainer.scrollTop === 0
 
@@ -53,18 +74,20 @@ export function Messages () {
         childRect.top < containerRect.bottom
       ) {
         const segundoDiv = child.children[1]
-        const textoSegundoDiv = segundoDiv.innerText.trim()
-        visibleMessages.push(textoSegundoDiv)
+        const text = segundoDiv.innerText.trim()
+
+        const height =
+          Math.min(childRect.bottom, containerRect.bottom) -
+          Math.max(childRect.top, containerRect.top)
+
+        visibleMessages.push({
+          text,
+          height
+        })
       }
     })
 
-    const messagesFinds = visibleMessages.map(messageText => {
-      const find = messages.find(message => message.text === messageText)
-
-      return find
-    })
-
-    return messagesFinds
+    return visibleMessages
   }
 
   useEffect(() => {
