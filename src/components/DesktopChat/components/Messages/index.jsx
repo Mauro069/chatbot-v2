@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { RenderText } from '../../../RenderText'
 import styles from './styles.module.css'
 import { CHAT_TYPES } from '../../../../context/Chat/types'
+import { banners } from '../../../../utils/banners'
 
 export function Messages () {
   const { messages, dispatch } = useChat()
@@ -16,14 +17,68 @@ export function Messages () {
     }
   }
 
-  const toggleBanners = message => {
-    if (message?.banners?.length > 0) {
+  const toggleBanners = banners => {
+    if (banners?.length > 0) {
       dispatch({
         type: CHAT_TYPES.SET_CURRENT_BANNERS,
-        payload: message.banners
+        payload: banners
       })
     }
   }
+
+  const handleScroll = () => {
+    const messagesContainer = messagesContainerRef.current
+
+    if (messagesContainer) {
+      const visibleMessages = getVisibleMessages(messagesContainer)
+      if (visibleMessages[0]?.banners) toggleBanners(visibleMessages[0].banners)
+
+      const isScrolledToTop = messagesContainer.scrollTop === 0
+
+      if (isScrolledToTop) {
+        toggleBanners(banners)
+      }
+    }
+  }
+
+  const getVisibleMessages = container => {
+    const visibleMessages = []
+    const containerRect = container.getBoundingClientRect()
+
+    ;[...container.children].forEach(child => {
+      const childRect = child.getBoundingClientRect()
+
+      if (
+        childRect.bottom > containerRect.top &&
+        childRect.top < containerRect.bottom
+      ) {
+        const segundoDiv = child.children[1]
+        const textoSegundoDiv = segundoDiv.innerText.trim()
+        visibleMessages.push(textoSegundoDiv)
+      }
+    })
+
+    const messagesFinds = visibleMessages.map(messageText => {
+      const find = messages.find(message => message.text === messageText)
+
+      return find
+    })
+
+    return messagesFinds
+  }
+
+  useEffect(() => {
+    const messagesContainer = messagesContainerRef.current
+    if (messagesContainer) {
+      messagesContainer.addEventListener('scroll', handleScroll)
+    }
+
+    return () => {
+      if (messagesContainer) {
+        messagesContainer.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     scrollToBottom()
@@ -38,8 +93,6 @@ export function Messages () {
         if (message.me) messageType = 'me'
 
         const isLastMessage = index === messages.length - 1
-
-        const showButton = !message.me && message?.banners?.length > 0
 
         return (
           <div
@@ -57,14 +110,6 @@ export function Messages () {
                   className={`${styles.circle} ${styles[messageType] || ''}`}
                 />
                 <span>{message.me ? 'You' : 'Valtira'}</span>
-                {showButton && (
-                  <button
-                    onClick={() => toggleBanners(message)}
-                    className={styles.links_button}
-                  >
-                    Links
-                  </button>
-                )}
               </div>
 
               <span className={styles.message_time}>{time}</span>
