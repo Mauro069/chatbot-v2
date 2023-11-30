@@ -35,7 +35,6 @@ export function Banners () {
               }}
               key={index}
               href={banner.link}
-              target='_blank'
             >
               <img src={iconUrl} alt={`Icon for ${banner.title}`} />
 
