@@ -57,7 +57,7 @@ export function Messages () {
                 styles[messageType] || ''
               } ${isError}`}
             >
-              <RenderText text={message.text} />
+              <RenderText message={message} />
             </div>
 
             {message?.banners?.length > 0 && (

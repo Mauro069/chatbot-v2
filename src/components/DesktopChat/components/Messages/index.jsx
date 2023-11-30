@@ -71,7 +71,7 @@ export function Messages () {
             </div>
 
             <div className={`${styles.message} ${styles[messageType] || ''}`}>
-              <RenderText text={message.text} />
+              <RenderText message={message} />
             </div>
           </div>
         )
