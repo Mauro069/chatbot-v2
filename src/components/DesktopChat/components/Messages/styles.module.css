@@ -88,3 +88,18 @@
     opacity: 1;
   }
 }
+
+.links_button {
+  background-color: #b1b1b1;
+  color: white;
+  border: none;
+  padding: 0.2rem 0.3rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  font-size: 12px;
+}
+
+.links_button:hover {
+  transform: scale(1.03);
+}

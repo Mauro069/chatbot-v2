@@ -2,9 +2,10 @@ import { useChat } from '../../../../context/Chat/context'
 import React, { useEffect, useRef } from 'react'
 import { RenderText } from '../../../RenderText'
 import styles from './styles.module.css'
+import { CHAT_TYPES } from '../../../../context/Chat/types'
 
 export function Messages () {
-  const { messages } = useChat()
+  const { messages, dispatch } = useChat()
   const messagesContainerRef = useRef(null)
   const lastMessageRef = useRef(null)
 
@@ -12,6 +13,15 @@ export function Messages () {
     if (lastMessageRef.current) {
       const lastMessage = lastMessageRef.current
       lastMessage.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const toggleBanners = message => {
+    if (message?.banners?.length > 0) {
+      dispatch({
+        type: CHAT_TYPES.SET_CURRENT_BANNERS,
+        payload: message.banners
+      })
     }
   }
 
@@ -29,6 +39,8 @@ export function Messages () {
 
         const isLastMessage = index === messages.length - 1
 
+        const showButton = !message.me && message?.banners?.length > 0
+
         return (
           <div
             key={index}
@@ -45,6 +57,14 @@ export function Messages () {
                   className={`${styles.circle} ${styles[messageType] || ''}`}
                 />
                 <span>{message.me ? 'You' : 'Valtira'}</span>
+                {showButton && (
+                  <button
+                    onClick={() => toggleBanners(message)}
+                    className={styles.links_button}
+                  >
+                    Links
+                  </button>
+                )}
               </div>
 
               <span className={styles.message_time}>{time}</span>
