@@ -38,14 +38,12 @@ export function Messages () {
             message.text?.toLowerCase() === visibleMessage.text?.toLowerCase()
         )
 
-        find.height = visibleMessage.height
-
-        return find
+        return { ...find, height: visibleMessage?.height }
       })
 
       const message = messagesFinds.reduce((moreHeightMsg, currentMsg) => {
-        if (currentMsg.height && currentMsg.banners && !currentMsg.default) {
-          if (!moreHeightMsg || currentMsg.height > moreHeightMsg.height) {
+        if (currentMsg?.height && currentMsg.banners && !currentMsg.default) {
+          if (!moreHeightMsg || currentMsg?.height > moreHeightMsg?.height) {
             return currentMsg
           }
         }
@@ -55,9 +53,16 @@ export function Messages () {
       if (message) toggleBanners(message.banners)
 
       const isScrolledToTop = messagesContainer.scrollTop === 0
+      const isScrolledToBottom =
+        messagesContainer.scrollTop + messagesContainer.clientHeight ===
+        messagesContainer.scrollHeight
 
       if (isScrolledToTop) {
         toggleBanners(banners)
+      }
+
+      if (isScrolledToBottom) {
+        toggleBanners(messages[message.length - 1]?.banners)
       }
     }
   }
