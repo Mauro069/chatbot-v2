@@ -24,6 +24,9 @@ export const addMessageToApi = async (input, dispatch) => {
           type: CHAT_TYPES.ADD_MESSAGE,
           payload: { text: 'An error occurred', error: true }
         })
+
+        dispatch({ type: CHAT_TYPES.END_LOADING })
+        return
       }
 
       const payload = {
