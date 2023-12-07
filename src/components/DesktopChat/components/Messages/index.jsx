@@ -1,27 +1,22 @@
 import { useChat } from '../../../../context/Chat/context'
-import React, { useEffect, useRef } from 'react'
-import { RenderText } from '../../../RenderText'
+import React, { useEffect, useRef, useState } from 'react'
+
 import styles from './styles.module.css'
+import { Message } from './Message'
+import { findMessageWithHighestHeight } from '../../../../utils/findMessageWithHighestHeight'
 import { CHAT_TYPES } from '../../../../context/Chat/types'
 import { banners } from '../../../../utils/banners'
 
 export function Messages () {
-  const { messages, dispatch } = useChat()
+  const { messages, currentBanners, dispatch } = useChat()
   const messagesContainerRef = useRef(null)
   const lastMessageRef = useRef(null)
 
-  const scrollToBottom = () => {
-    if (lastMessageRef.current) {
-      const lastMessage = lastMessageRef.current
-      lastMessage.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  const toggleBanners = banners => {
-    if (banners?.length > 0) {
+  const toggleBanners = newBanners => {
+    if (newBanners?.length > 0) {
       dispatch({
         type: CHAT_TYPES.SET_CURRENT_BANNERS,
-        payload: banners
+        payload: newBanners
       })
     }
   }
@@ -30,42 +25,44 @@ export function Messages () {
     const messagesContainer = messagesContainerRef.current
 
     if (messagesContainer) {
-      const visibleMessages = getVisibleMessages(messagesContainer, messages)
-
-      const messagesFinds = visibleMessages.map(visibleMessage => {
-        const find = messages.find(
-          message =>
-            message.text?.toLowerCase() === visibleMessage.text?.toLowerCase()
-        )
-
-        return { ...find, height: visibleMessage?.height }
-      })
-
-      const message = messagesFinds.reduce((moreHeightMsg, currentMsg) => {
-        if (currentMsg?.height && currentMsg.banners && !currentMsg.default) {
-          if (!moreHeightMsg || currentMsg?.height > moreHeightMsg?.height) {
-            return currentMsg
-          }
-        }
-        return moreHeightMsg
-      }, null)
-
-      if (message) toggleBanners(message.banners)
-
-      const isScrolledToTop = messagesContainer.scrollTop === 0
-      const isScrolledToBottom =
+      const isAtTop = messagesContainer.scrollTop === 0
+      const isAtBottom =
         messagesContainer.scrollTop + messagesContainer.clientHeight ===
         messagesContainer.scrollHeight
 
-      if (isScrolledToTop) {
+      if (isAtTop) {
+        // Si está en la parte superior, establece los banners por defecto
         toggleBanners(banners)
+        return
       }
 
-      if (isScrolledToBottom) {
-        toggleBanners(messages[message.length - 1]?.banners)
+      if (isAtBottom) {
+        // Si está en la parte inferior, establece los banners por defecto para abajo
+        const lastMessage = messages[messages.length - 1]
+        toggleBanners(lastMessage.banners)
+        return
+      }
+
+      const visibleMessages = getVisibleMessages(messagesContainer, messages)
+
+      const highestMessage = findMessageWithHighestHeight(visibleMessages)
+
+      if (currentBanners !== highestMessage.banners) {
+        toggleBanners(highestMessage.banners)
       }
     }
   }
+
+  const scrollToBottom = () => {
+    if (lastMessageRef.current) {
+      const lastMessage = lastMessageRef.current
+      lastMessage.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   const getVisibleMessages = container => {
     const visibleMessages = []
@@ -78,75 +75,46 @@ export function Messages () {
         childRect.bottom > containerRect.top &&
         childRect.top < containerRect.bottom
       ) {
-        const segundoDiv = child.children[1]
-        const text = segundoDiv.innerText.trim()
+        const divText = child.children[1]
+        const text = divText.innerText
+
+        const messageFind = messages.find(msg => {
+          return String(msg.text) === String(text)
+        })
 
         const height =
           Math.min(childRect.bottom, containerRect.bottom) -
           Math.max(childRect.top, containerRect.top)
 
-        visibleMessages.push({
-          text,
-          height
-        })
+        const visibleMessage = {
+          text: text,
+          height,
+          banners: messageFind?.banners
+        }
+
+        visibleMessages.push(visibleMessage)
       }
     })
 
     return visibleMessages
   }
 
-  useEffect(() => {
-    const messagesContainer = messagesContainerRef.current
-    if (messagesContainer) {
-      messagesContainer.addEventListener('scroll', handleScroll)
-    }
-
-    return () => {
-      if (messagesContainer) {
-        messagesContainer.removeEventListener('scroll', handleScroll)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
   return (
-    <div className={styles.messages} ref={messagesContainerRef}>
-      {[...messages]?.map((message, index) => {
-        const time = '08:55'
-
-        let messageType
-        if (message.me) messageType = 'me'
-
+    <div
+      className={styles.messages}
+      ref={messagesContainerRef}
+      onScroll={handleScroll}
+    >
+      {messages?.map((message, index) => {
         const isLastMessage = index === messages.length - 1
 
         return (
-          <div
+          <Message
             key={index}
-            ref={isLastMessage ? lastMessageRef : null}
-            className={styles.message_container}
-          >
-            <div className={styles.message_container_top}>
-              <div
-                className={`${styles.message_owner} ${
-                  styles[messageType] || ''
-                }`}
-              >
-                <div
-                  className={`${styles.circle} ${styles[messageType] || ''}`}
-                />
-                <span>{message.me ? 'You' : 'Valtira'}</span>
-              </div>
-
-              <span className={styles.message_time}>{time}</span>
-            </div>
-
-            <div className={`${styles.message} ${styles[messageType] || ''}`}>
-              <RenderText message={message} />
-            </div>
-          </div>
+            message={message}
+            isLastMessage={isLastMessage}
+            lastMessageRef={isLastMessage ? lastMessageRef : null}
+          />
         )
       })}
     </div>
