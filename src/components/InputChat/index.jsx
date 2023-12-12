@@ -12,8 +12,9 @@ export function InputChat () {
   const handleSubmit = async e => {
     e.preventDefault()
 
-    const inputText = e.target.value
-    addMessageToApi(inputText, dispatch)
+    if (text === '' || !text) return
+
+    addMessageToApi(text, dispatch)
     setText('')
   }
 
@@ -32,7 +33,7 @@ export function InputChat () {
         placeholder={loading ? 'Loading...' : 'Ask anything...'}
       />
 
-      <button className={styles.send_button}>
+      <button type='submit' className={styles.send_button}>
         {loading ? <Loader size={15} /> : <img src='/assets/arrow.svg' />}
       </button>
     </form>

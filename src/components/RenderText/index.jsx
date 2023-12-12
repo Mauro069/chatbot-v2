@@ -5,6 +5,8 @@ import styles from './styles.module.css'
 import { areBannersEqual } from '../../utils/areBannersEquals'
 
 export function RenderText ({ message }) {
+  if(!message.text) return
+
   const { text } = message
   const { dispatch, currentBanners } = useChat()
   const buttonStartIndex = text.indexOf('<button')
